@@ -16,44 +16,48 @@ function create(win, opts) {
 		const hasText = props.selectionText.trim().length > 0;
 		const can = type => editFlags[`can${type}`] && hasText;
 
-		let menuTpl = [{
-			type: 'separator'
-		}, {
-			id: 'cut',
-			label: 'Cut',
-			// Needed because of macOS limitation:
-			// https://github.com/electron/electron/issues/5860
-			role: can('Cut') ? 'cut' : '',
-			enabled: can('Cut'),
-			visible: props.isEditable
-		}, {
-			id: 'copy',
-			label: 'Copy',
-			role: can('Copy') ? 'copy' : '',
-			enabled: can('Copy'),
-			visible: props.isEditable/* || hasText */
-		}, {
-			id: 'paste',
-			label: 'Paste',
-			role: editFlags.canPaste ? 'paste' : '',
-			enabled: editFlags.canPaste,
-			visible: props.isEditable
-		}, {
-			type: 'separator'
-		},
-		{
-			id: 'keep',
-			label: 'Keep',
-			enabled: can('Keep'),
-            click: () => {
-			  if (!hasText)
-			  	electron.shell.openExternal('https://keep.google.com/')
-			  else
-				electron.shell.openExternal( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
-            }
-          }
-
-	];
+		let menuTpl = [
+			{
+				type: 'separator'
+			},
+			{
+				id: 'cut',
+				label: 'Cut',
+				// Needed because of macOS limitation:
+				// https://github.com/electron/electron/issues/5860
+				role: can('Cut') ? 'cut' : '',
+				enabled: can('Cut'),
+				visible: props.isEditable
+			},
+			{
+				id: 'copy',
+				label: 'Copy',
+				role: can('Copy') ? 'copy' : '',
+				enabled: can('Copy'),
+				visible: props.isEditable/* || hasText */
+			},
+			{
+				id: 'paste',
+				label: 'Paste',
+				role: editFlags.canPaste ? 'paste' : '',
+				enabled: editFlags.canPaste,
+				visible: props.isEditable
+			},
+			{
+				type: 'separator'
+			},
+			{
+				id: 'keep',
+				label: 'Keep',
+				enabled: can('Copy'),
+				click: () => {
+				  if (!hasText)
+					  electron.shell.openExternal('https://keep.google.com/')
+				  else
+					electron.shell.openExternal( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
+				}
+			}
+		];
 
 		if (props.mediaType === 'image') {
 			menuTpl = [{
