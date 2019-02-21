@@ -72,6 +72,27 @@ function create(win, opts) {
 				}
 			},
 			{
+				id: 'skellws',
+				label: hasText ? 'SKELLコロケーション検索' : 'SKELL(コロケーション)',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+				  if (!hasText)
+					  electron.shell.openExternal('https://skell.sketchengine.co.uk/run.cgi/skell')
+				  else
+					electron.shell.openExternal( 'https://skell.sketchengine.co.uk/run.cgi/wordsketch?lpos=&query=' + props.selectionText.trim());
+				}
+			},
+			{
+				id: 'ngram',
+				label: hasText ? 'ngram検索' : 'ngram検索',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					electron.shell.openExternal( `https://books.google.com/ngrams/graph?content=${props.selectionText.trim()}&year_start=1900&corpus=15&smoothing=3`);
+				}
+			},
+			{
 				id: 'dopeoplesayit',
 				label: hasText ? 'Do People Say It例文検索' : 'Do People Say It',
 				enabled: can('Copy'),
@@ -103,6 +124,16 @@ function create(win, opts) {
 				}
 			},
 			{
+				id: 'Youglish',
+				label: hasText ? 'Youglishで検索' : 'Youglishで検索',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					electron.shell.openExternal( `https://youglish.com/search/${props.selectionText.trim()}`);
+				}
+			},
+			{ type: 'separator' },
+			{
 				id: 'Twitter',
 				label: 'Twitter検索',
 				enabled: can('Copy'),
@@ -120,7 +151,6 @@ function create(win, opts) {
 					electron.shell.openExternal(`https://renso-ruigo.com/word/${props.selectionText.trim()}`);
 				}
 			},
-			{ type: 'separator' },
 			{
 				id: 'wikijp',
 				label: hasText ? 'Wikipediaで検索' : 'Wikipedia',
