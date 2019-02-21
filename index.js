@@ -3,6 +3,10 @@ const electron = require('electron');
 const {download} = require('electron-dl');
 const isDev = require('electron-is-dev');
 
+// for testing
+// for testing
+// for testing
+
 const webContents = win => win.webContents || win.getWebContents();
 
 function create(win, opts) {
