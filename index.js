@@ -3,11 +3,8 @@ const electron = require('electron');
 const {download} = require('electron-dl');
 const isDev = require('electron-is-dev');
 
-// for testing
-// for testing
-// for testing
-
 const webContents = win => win.webContents || win.getWebContents();
+
 
 function create(win, opts) {
 	webContents(win).on('context-menu', (e, props) => {
@@ -47,11 +44,12 @@ function create(win, opts) {
 		{
 			id: 'keep',
 			label: 'Keep',
+			enabled: can('Keep'),
             click: () => {
 			  if (!hasText)
-			  	win.openExternal('https://keep.google.com/')
+			  	electron.shell.openExternal('https://keep.google.com/')
 			  else
-				win.openExternal ( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
+				electron.shell.openExternal( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
             }
           }
 
