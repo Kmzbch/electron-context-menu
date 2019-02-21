@@ -49,9 +49,9 @@ function create(win, opts) {
 			label: 'Keep',
             click: () => {
 			  if (!hasText)
-				shell.openExternal ( 'https://keep.google.com/' );
+			  	win.openExternal('https://keep.google.com/')
 			  else
-				shell.openExternal ( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
+				win.openExternal ( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
             }
           }
 
