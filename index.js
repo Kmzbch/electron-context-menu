@@ -44,6 +44,19 @@ function create(win, opts) {
 				visible: props.isEditable
 			},
 			{
+				id: 'google',
+				label: hasText ? 'Google検索' : 'open Google',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					if (!hasText)
+						electron.shell.openExternal('https://www.google.com/')
+				  	else
+						electron.shell.openExternal('https://www.google.com/search?q=' + props.selectionText.trim());
+				}
+			},
+
+			{
 				type: 'separator'
 			},
 			{
@@ -66,23 +79,11 @@ function create(win, opts) {
 				click: () => {
 					electron.shell.openExternal(`https://dopeoplesay.com/q/${props.selectionText.trim()}`);
 				}
-			},			
-			{
-				id: 'skellws',
-				label: hasText ? 'SKELLコロケーション検索' : 'SKELL(コロケーション)',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-				  if (!hasText)
-					  electron.shell.openExternal('https://skell.sketchengine.co.uk/run.cgi/skell')
-				  else
-					electron.shell.openExternal( 'https://skell.sketchengine.co.uk/run.cgi/wordsketch?lpos=&query=' + props.selectionText.trim());
-				}
 			},
 			{ type: 'separator' },
 			{
 				id: 'keep',
-				label: hasText ? 'search in Keep' : 'open Keep',
+				label: hasText ? 'Keepで検索' : 'open Keep',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -102,7 +103,16 @@ function create(win, opts) {
 				}
 			},
 			{
-				id: '`ruigo`',
+				id: 'Twitter',
+				label: 'Twitter検索',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					electron.shell.openExternal(`https://twitter.com/search?q=${props.selectionText.trim()}&src=typd`);
+				}
+			},
+			{
+				id: 'ruigo',
 				label: hasText ? '連想類語辞典で検索' : '連想類語辞典',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
@@ -111,18 +121,6 @@ function create(win, opts) {
 				}
 			},
 			{ type: 'separator' },
-			{
-				id: 'google',
-				label: hasText ? 'Googleで検索' : 'open Google',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-					if (!hasText)
-						electron.shell.openExternal('https://www.google.com/')
-				  	else
-						electron.shell.openExternal('https://www.google.com/search?q=' + props.selectionText.trim());
-				}
-			},
 			{
 				id: 'wikijp',
 				label: hasText ? 'Wikipediaで検索' : 'Wikipedia',
@@ -146,32 +144,35 @@ function create(win, opts) {
 			},
 			{ type: 'separator' },
 			{
-				id: 'simplenote',
-				label: 'Simplenote',
-				click: () => shell.openExternal ( 'https://app.simplenote.com/' )
-		    },
-			{
-				id: 'iosnote',
-				label: 'iOS note',
-				click: () => shell.openExternal ( 'https://www.icloud.com/#notes2/' )
-			},
-			{
-				id: 'writebox',
-				label: 'Writebox',
-				click: () => shell.openExternal ( 'https://write-box.appspot.com/' )
-			},
-			{
-				id: 'scrapbox',
-				label: 'Scrapbox',
-				click: () => shell.openExternal ( 'https://scrapbox.io/' )
-			},
-			{ type: 'separator' },
-			{
-				id: 'workflowy',
-				label: 'Workflowy',
-				click: () => shell.openExternal ( 'https://workflowy.com/' )
+				id: 'tools',
+				submenu: [
+					{
+						id: 'simplenote',
+						label: 'Simplenote',
+						click: () => electron.shell.openExternal ( 'https://app.simplenote.com/' )
+					},
+					{
+						id: 'iosnote',
+						label: 'iOS note',
+						click: () => electron.shell.openExternal ( 'https://www.icloud.com/#notes2/' )
+					},
+					{
+						id: 'writebox',
+						label: 'Writebox',
+						click: () => electron.shell.openExternal ( 'https://write-box.appspot.com/' )
+					},
+					{
+						id: 'scrapbox',
+						label: 'Scrapbox',
+						click: () => electron.shell.openExternal ( 'https://scrapbox.io/' )
+					},
+					{
+						id: 'workflowy',
+						label: 'Workflowy',
+						click: () => electron.shell.openExternal ( 'https://workflowy.com/' )
+					}
+				]
 			}
-	
 		];
 
 		if (props.mediaType === 'image') {
