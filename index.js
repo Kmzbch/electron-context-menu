@@ -34,7 +34,7 @@ function create(win, opts) {
 			label: 'Copy',
 			role: can('Copy') ? 'copy' : '',
 			enabled: can('Copy'),
-			visible: props.isEditable || hasText
+			visible: props.isEditable/* || hasText */
 		}, {
 			id: 'paste',
 			label: 'Paste',
