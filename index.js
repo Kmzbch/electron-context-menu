@@ -43,7 +43,19 @@ function create(win, opts) {
 			visible: props.isEditable
 		}, {
 			type: 'separator'
-		}];
+		},
+		{
+			id: 'keep',
+			label: 'Keep',
+            click: () => {
+			  if (!hasText)
+				shell.openExternal ( 'https://keep.google.com/' );
+			  else
+				shell.openExternal ( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
+            }
+          }
+
+	];
 
 		if (props.mediaType === 'image') {
 			menuTpl = [{
