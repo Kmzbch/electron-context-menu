@@ -34,7 +34,7 @@ function create(win, opts) {
 				label: 'Copy',
 				role: can('Copy') ? 'copy' : '',
 				enabled: can('Copy'),
-				visible: props.isEditable/* || hasText */
+				visible: props.isEditable || hasText 
 			},
 			{
 				id: 'paste',
@@ -46,17 +46,100 @@ function create(win, opts) {
 			{
 				type: 'separator'
 			},
+
+			{
+				id: 'skell',
+				label: hasText ? 'search in SKELL' : 'open SKELL',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+				  if (!hasText)
+					  electron.shell.openExternal('https://skell.sketchengine.co.uk/run.cgi/skell')
+				  else
+					electron.shell.openExternal( 'https://skell.sketchengine.co.uk/run.cgi/concordance?lpos=&query=' + props.selectionText.trim());
+				}
+			},
 			{
 				id: 'keep',
-				label: 'Keep',
+				label: hasText ? 'search in Keep' : 'open Keep',
 				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
 				click: () => {
 				  if (!hasText)
 					  electron.shell.openExternal('https://keep.google.com/')
 				  else
 					electron.shell.openExternal( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
 				}
+			},
+			{
+				id: 'vocabulary',
+				label: hasText ? 'search in Vocab' : 'open Vocab',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+				  if (!hasText)
+					electron.shell.openExternal('https://www.vocabulary.com/dictionary/')
+				  else
+					electron.shell.openExternal( 'https://www.vocabulary.com/dictionary/' + props.selectionText.trim());
+				}
+			},
+			{
+				id: 'google',
+				label: hasText ? 'google' : 'open google',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					if (!hasText)
+						electron.shell.openExternal('https://www.google.com/')
+				  	else
+						electron.shell.openExternal( 'https://www.google.com/search?q=' + props.selectionText.trim());
+				}
+			},
+			{
+				id: '`ruigo`',
+				label: hasText ? 'Ruigo' : 'open Ruigo',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					electron.shell.openExternal('https://renso-ruigo.com/word/' + props.selectionText.trim());
+				}
+			},
+			{ type: 'separator' },
+			{
+				id: 'simplenote',
+				label: 'Simplenote',
+				enabled: can('Copy'),
+				click: () => shell.openExternal ( 'https://app.simplenote.com/' )
+		    },
+			{
+				id: 'iosnote',
+				label: 'iOS note',
+				enabled: can('Copy'),
+				click: () => shell.openExternal ( 'https://app.simplenote.com/' )
+			},
+			{
+				id: 'iosnote',
+				label: 'iOS note',
+				enabled: can('Copy'),
+				click: () => shell.openExternal ( 'https://app.simplenote.com/' )
+			},
+			{
+				id: 'writebox',
+				label: 'Writebox',
+				click: () => shell.openExternal ( 'https://write-box.appspot.com/' )
+			},
+			{
+				id: 'scrapbox',
+				label: 'Scrapbox',
+				click: () => shell.openExternal ( 'https://scrapbox.io/' )
+			},
+			{ type: 'separator' },
+			{
+				id: 'workflowy',
+				label: 'Workflowy',
+				click: () => shell.openExternal ( 'https://workflowy.com/' )
 			}
+	
 		];
 
 		if (props.mediaType === 'image') {
