@@ -46,10 +46,9 @@ function create(win, opts) {
 			{
 				type: 'separator'
 			},
-
 			{
-				id: 'skell',
-				label: hasText ? 'search in SKELL' : 'open SKELL',
+				id: 'skellcc',
+				label: hasText ? 'SKELL例文検索' : 'SKELL(例文)',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -60,68 +59,101 @@ function create(win, opts) {
 				}
 			},
 			{
+				id: 'dopeoplesayit',
+				label: hasText ? 'Do People Say It例文検索' : 'Do People Say It',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					electron.shell.openExternal(`https://dopeoplesay.com/q/${props.selectionText.trim()}`);
+				}
+			},			
+			{
+				id: 'skellws',
+				label: hasText ? 'SKELLコロケーション検索' : 'SKELL(コロケーション)',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+				  if (!hasText)
+					  electron.shell.openExternal('https://skell.sketchengine.co.uk/run.cgi/skell')
+				  else
+					electron.shell.openExternal( 'https://skell.sketchengine.co.uk/run.cgi/wordsketch?lpos=&query=' + props.selectionText.trim());
+				}
+			},
+			{ type: 'separator' },
+			{
 				id: 'keep',
 				label: hasText ? 'search in Keep' : 'open Keep',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
 				  if (!hasText)
-					  electron.shell.openExternal('https://keep.google.com/')
+					electron.shell.openExternal('https://keep.google.com/')
 				  else
-					electron.shell.openExternal( 'https://keep.google.com/#search/text%253D' + props.selectionText.trim());
+					electron.shell.openExternal( 'https://keep.google.com/#search/text=' + props.selectionText.trim());
 				}
 			},
 			{
 				id: 'vocabulary',
-				label: hasText ? 'search in Vocab' : 'open Vocab',
+				label: hasText ? 'Vocabulary.comで検索' : 'Vocabulary.com',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
-				  if (!hasText)
-					electron.shell.openExternal('https://www.vocabulary.com/dictionary/')
-				  else
-					electron.shell.openExternal( 'https://www.vocabulary.com/dictionary/' + props.selectionText.trim());
+					electron.shell.openExternal( `https://www.vocabulary.com/dictionary/${props.selectionText.trim()}`);
 				}
 			},
 			{
+				id: '`ruigo`',
+				label: hasText ? '連想類語辞典で検索' : '連想類語辞典',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					electron.shell.openExternal(`https://renso-ruigo.com/word/${props.selectionText.trim()}`);
+				}
+			},
+			{ type: 'separator' },
+			{
 				id: 'google',
-				label: hasText ? 'google' : 'open google',
+				label: hasText ? 'Googleで検索' : 'open Google',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
 					if (!hasText)
 						electron.shell.openExternal('https://www.google.com/')
 				  	else
-						electron.shell.openExternal( 'https://www.google.com/search?q=' + props.selectionText.trim());
+						electron.shell.openExternal('https://www.google.com/search?q=' + props.selectionText.trim());
 				}
 			},
 			{
-				id: '`ruigo`',
-				label: hasText ? 'Ruigo' : 'open Ruigo',
+				id: 'wikijp',
+				label: hasText ? 'Wikipediaで検索' : 'Wikipedia',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
-					electron.shell.openExternal('https://renso-ruigo.com/word/' + props.selectionText.trim());
+					electron.shell.openExternal(`https://jp.wikipedia.org/wiki/Special:Search?search=${props.selectionText.trim()}`);
+				}
+			},
+			{
+				id: 'imdb',
+				label: hasText ? 'IMDBで検索' : 'IMDB',
+				enabled: can('Copy'),
+				visible: props.isEditable || hasText,
+				click: () => {
+					if (!hasText)
+						electron.shell.openExternal('https://www.google.com/')
+				  	else
+						electron.shell.openExternal(`https://www.imdb.com/find?ref_=nv_sr_fn&q=${props.selectionText.trim()}`);
 				}
 			},
 			{ type: 'separator' },
 			{
 				id: 'simplenote',
 				label: 'Simplenote',
-				enabled: can('Copy'),
 				click: () => shell.openExternal ( 'https://app.simplenote.com/' )
 		    },
 			{
 				id: 'iosnote',
 				label: 'iOS note',
-				enabled: can('Copy'),
-				click: () => shell.openExternal ( 'https://app.simplenote.com/' )
-			},
-			{
-				id: 'iosnote',
-				label: 'iOS note',
-				enabled: can('Copy'),
-				click: () => shell.openExternal ( 'https://app.simplenote.com/' )
+				click: () => shell.openExternal ( 'https://www.icloud.com/#notes2/' )
 			},
 			{
 				id: 'writebox',
