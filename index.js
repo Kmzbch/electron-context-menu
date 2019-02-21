@@ -145,6 +145,7 @@ function create(win, opts) {
 			{ type: 'separator' },
 			{
 				id: 'tools',
+				label: 'Tools',
 				submenu: [
 					{
 						id: 'simplenote',
