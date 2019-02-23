@@ -45,7 +45,7 @@ function create(win, opts) {
 			},
 			{
 				id: 'google',
-				label: hasText ? 'Google検索' : 'open Google',
+				label: hasText ? 'Google検索' : 'Google',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -85,7 +85,7 @@ function create(win, opts) {
 			},
 			{
 				id: 'ngram',
-				label: hasText ? 'ngram検索' : 'ngram検索',
+				label: 'ngram',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -94,7 +94,7 @@ function create(win, opts) {
 			},
 			{
 				id: 'dopeoplesayit',
-				label: hasText ? 'Do People Say It例文検索' : 'Do People Say It',
+				label: 'Do People Say It',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -104,7 +104,7 @@ function create(win, opts) {
 			{ type: 'separator' },
 			{
 				id: 'keep',
-				label: hasText ? 'Keepで検索' : 'open Keep',
+				label: hasText ? 'Keep検索' : 'open Keep',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -116,7 +116,7 @@ function create(win, opts) {
 			},
 			{
 				id: 'vocabulary',
-				label: hasText ? 'Vocabulary.comで検索' : 'Vocabulary.com',
+				label: hasText ? 'Vocabulary.com' : 'Vocabulary.com',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -125,7 +125,7 @@ function create(win, opts) {
 			},
 			{
 				id: 'Youglish',
-				label: hasText ? 'Youglishで検索' : 'Youglishで検索',
+				label: 'Youglish',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -144,7 +144,7 @@ function create(win, opts) {
 			},
 			{
 				id: 'ruigo',
-				label: hasText ? '連想類語辞典で検索' : '連想類語辞典',
+				label: '連想類語辞典',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -162,7 +162,7 @@ function create(win, opts) {
 			},
 			{
 				id: 'imdb',
-				label: hasText ? 'IMDBで検索' : 'IMDB',
+				label: hasText ? 'IMDB検索' : 'IMDB',
 				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
@@ -188,19 +188,9 @@ function create(win, opts) {
 						click: () => electron.shell.openExternal ( 'https://www.icloud.com/#notes2/' )
 					},
 					{
-						id: 'writebox',
-						label: 'Writebox',
-						click: () => electron.shell.openExternal ( 'https://write-box.appspot.com/' )
-					},
-					{
 						id: 'scrapbox',
 						label: 'Scrapbox',
 						click: () => electron.shell.openExternal ( 'https://scrapbox.io/' )
-					},
-					{
-						id: 'workflowy',
-						label: 'Workflowy',
-						click: () => electron.shell.openExternal ( 'https://workflowy.com/' )
 					}
 				]
 			}
