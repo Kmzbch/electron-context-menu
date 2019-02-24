@@ -79,7 +79,8 @@ function create(win, opts) {
 			},
 			{
 				id: 'phrasesearch',
-				label: 'Phrase検索',
+				label: 'フレーズ検索',
+				visible: props.isEditable || hasText,
 				submenu: [
 					{
 						id: 'skellws',
@@ -116,7 +117,8 @@ function create(win, opts) {
 			{ type: 'separator' },
 			{
 				id: 'wordsearch',
-				label: 'Word検索',
+				label: '単語検索',
+				visible: props.isEditable || hasText,
 				submenu: [
 					{
 						id: 'keep',
@@ -132,7 +134,7 @@ function create(win, opts) {
 					{
 						id: 'vocabulary',
 						label: 'Vocabulary.com',
-						visible: props.isEditable && hasText,
+						visible: props.isEditable || hasText,
 						click: () => {
 							electron.shell.openExternal( `https://www.vocabulary.com/dictionary/${props.selectionText.trim()}`);
 						}
@@ -140,7 +142,7 @@ function create(win, opts) {
 					{
 						id: 'ruigo',
 						label: '連想類語辞典',
-						visible: props.isEditable && hasText,
+						visible: props.isEditable || hasText,
 						click: () => {
 							electron.shell.openExternal(`https://renso-ruigo.com/word/${props.selectionText.trim()}`);
 						}
