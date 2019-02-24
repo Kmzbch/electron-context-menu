@@ -44,6 +44,9 @@ function create(win, opts) {
 				visible: props.isEditable
 			},
 			{
+				type: 'separator'
+			},
+			{
 				id: 'google',
 				label: hasText ? 'Google検索' : 'Google',
 				enabled: can('Copy'),
@@ -55,127 +58,99 @@ function create(win, opts) {
 						electron.shell.openExternal('https://www.google.com/search?q=' + props.selectionText.trim());
 				}
 			},
-
-			{
-				type: 'separator'
-			},
-			{
-				id: 'skellcc',
-				label: hasText ? 'SKELL例文検索' : 'SKELL(例文)',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-				  if (!hasText)
-					  electron.shell.openExternal('https://skell.sketchengine.co.uk/run.cgi/skell')
-				  else
-					electron.shell.openExternal( 'https://skell.sketchengine.co.uk/run.cgi/concordance?lpos=&query=' + props.selectionText.trim());
-				}
-			},
-			{
-				id: 'skellws',
-				label: hasText ? 'SKELLコロケーション検索' : 'SKELL(コロケーション)',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-				  if (!hasText)
-					  electron.shell.openExternal('https://skell.sketchengine.co.uk/run.cgi/skell')
-				  else
-					electron.shell.openExternal( 'https://skell.sketchengine.co.uk/run.cgi/wordsketch?lpos=&query=' + props.selectionText.trim());
-				}
-			},
-			{
-				id: 'ngram',
-				label: 'ngram',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-					electron.shell.openExternal( `https://books.google.com/ngrams/graph?content=${props.selectionText.trim()}&year_start=1900&corpus=15&smoothing=3`);
-				}
-			},
-			{
-				id: 'dopeoplesayit',
-				label: 'Do People Say It',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-					electron.shell.openExternal(`https://dopeoplesay.com/q/${props.selectionText.trim()}`);
-				}
-			},
-			{ type: 'separator' },
-			{
-				id: 'keep',
-				label: hasText ? 'Keep検索' : 'open Keep',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-				  if (!hasText)
-					electron.shell.openExternal('https://keep.google.com/')
-				  else
-					electron.shell.openExternal( 'https://keep.google.com/#search/text=' + props.selectionText.trim());
-				}
-			},
-			{
-				id: 'vocabulary',
-				label: hasText ? 'Vocabulary.com' : 'Vocabulary.com',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-					electron.shell.openExternal( `https://www.vocabulary.com/dictionary/${props.selectionText.trim()}`);
-				}
-			},
-			{
-				id: 'Youglish',
-				label: 'Youglish',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-					electron.shell.openExternal( `https://youglish.com/search/${props.selectionText.trim()}`);
-				}
-			},
-			{ type: 'separator' },
-			{
-				id: 'Twitter',
-				label: 'Twitter検索',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-					electron.shell.openExternal(`https://twitter.com/search?q=${props.selectionText.trim()}&src=typd`);
-				}
-			},
-			{
-				id: 'ruigo',
-				label: '連想類語辞典',
-				enabled: can('Copy'),
-				visible: props.isEditable || hasText,
-				click: () => {
-					electron.shell.openExternal(`https://renso-ruigo.com/word/${props.selectionText.trim()}`);
-				}
-			},
 			{
 				id: 'wikijp',
 				label: hasText ? 'Wikipediaで検索' : 'Wikipedia',
-				enabled: can('Copy'),
 				visible: props.isEditable || hasText,
 				click: () => {
 					electron.shell.openExternal(`https://jp.wikipedia.org/wiki/Special:Search?search=${props.selectionText.trim()}`);
 				}
 			},
 			{
-				id: 'imdb',
-				label: hasText ? 'IMDB検索' : 'IMDB',
-				enabled: can('Copy'),
+				id: 'twitter',
+				label: hasText ? 'Twitter検索' : 'Twitter',
 				visible: props.isEditable || hasText,
 				click: () => {
 					if (!hasText)
-						electron.shell.openExternal('https://www.google.com/')
+						electron.shell.openExternal('https://twitter.com/')
 				  	else
-						electron.shell.openExternal(`https://www.imdb.com/find?ref_=nv_sr_fn&q=${props.selectionText.trim()}`);
+						electron.shell.openExternal(`https://twitter.com/search?q=${props.selectionText.trim()}&src=typd`);
 				}
+			},
+			{
+				id: 'phrasesearch',
+				label: 'Phrase検索',
+				submenu: [
+					{
+						id: 'skellws',
+						label: hasText ? 'SKELLコロケーション検索' : 'SKELL(コロケーション)',
+						enabled: can('Copy'),
+						visible: props.isEditable || hasText,
+						click: () => {
+						  if (!hasText)
+							  electron.shell.openExternal('https://skell.sketchengine.co.uk/run.cgi/skell')
+						  else
+							electron.shell.openExternal( 'https://skell.sketchengine.co.uk/run.cgi/wordsketch?lpos=&query=' + props.selectionText.trim());
+						}
+					},
+					{
+						id: 'dopeoplesayit',
+						label: 'Do People Say It',
+						enabled: can('Copy'),
+						visible: props.isEditable || hasText,
+						click: () => {
+							electron.shell.openExternal(`https://dopeoplesay.com/q/${props.selectionText.trim()}`);
+						}
+					},
+					{
+						id: 'ngram',
+						label: 'ngram',
+						enabled: can('Copy'),
+						visible: props.isEditable || hasText,
+						click: () => {
+							electron.shell.openExternal( `https://books.google.com/ngrams/graph?content=${props.selectionText.trim()}&year_start=1900&corpus=15&smoothing=3`);
+						}
+					},
+				]
 			},
 			{ type: 'separator' },
 			{
-				id: 'tools',
-				label: 'Tools',
+				id: 'wordsearch',
+				label: 'Word検索',
+				submenu: [
+					{
+						id: 'keep',
+						label: hasText ? 'Keep検索' : 'Keep',
+						visible: props.isEditable || hasText,
+						click: () => {
+						  if (!hasText)
+							electron.shell.openExternal('https://keep.google.com/')
+						  else
+							electron.shell.openExternal( 'https://keep.google.com/#search/text=' + props.selectionText.trim());
+						}
+					},
+					{
+						id: 'vocabulary',
+						label: 'Vocabulary.com',
+						visible: props.isEditable && hasText,
+						click: () => {
+							electron.shell.openExternal( `https://www.vocabulary.com/dictionary/${props.selectionText.trim()}`);
+						}
+					},
+					{
+						id: 'ruigo',
+						label: '連想類語辞典',
+						visible: props.isEditable && hasText,
+						click: () => {
+							electron.shell.openExternal(`https://renso-ruigo.com/word/${props.selectionText.trim()}`);
+						}
+					},
+				]
+			},
+			{ type: 'separator' },
+			{
+				id: 'bookmarks',
+				label: 'Bookmarks',
 				submenu: [
 					{
 						id: 'simplenote',
@@ -191,7 +166,20 @@ function create(win, opts) {
 						id: 'scrapbox',
 						label: 'Scrapbox',
 						click: () => electron.shell.openExternal ( 'https://scrapbox.io/' )
-					}
+					},
+					{ type: 'separator' },
+					{
+						id: 'imdb',
+						label: 'IMDB',
+						click: () => electron.shell.openExternal ( 'https://www.imdb.com/' )
+					},
+					{ type: 'separator' },
+					{
+						id: 'pocket',
+						label: 'Pocket',
+						click: () => electron.shell.openExternal ( 'https://getpocket.com/a/queue/' )
+					},
+
 				]
 			}
 		];
